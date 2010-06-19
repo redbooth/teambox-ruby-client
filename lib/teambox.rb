@@ -28,7 +28,8 @@ module Teambox
   class NotFound      < StandardError; end
 
   def self.api_endpoint
-    @api_endpoint ||= "api.teambox.com/#{API_VERSION}"
+#    @api_endpoint ||= "api.teambox.com/#{API_VERSION}"
+    @api_endpoint ||= "teambox.com"
   end
   
   def self.api_endpoint=(value)
@@ -148,9 +149,6 @@ end
 
 directory = File.expand_path(File.dirname(__FILE__))
 
-require File.join(directory, "teambox", "oauth")
 require File.join(directory, "teambox", "httpauth")
 require File.join(directory, "teambox", "request")
 require File.join(directory, "teambox", "base")
-require File.join(directory, "teambox", "search")
-require File.join(directory, "teambox", "trends")
