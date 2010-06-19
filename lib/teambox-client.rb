@@ -1,6 +1,4 @@
-require "rubygems"
 require "forwardable"
-require "oauth"
 require "hashie"
 require "httparty"
 require "yajl"
@@ -149,6 +147,6 @@ end
 
 directory = File.expand_path(File.dirname(__FILE__))
 
-require File.join(directory, "teambox", "httpauth")
-require File.join(directory, "teambox", "request")
-require File.join(directory, "teambox", "base")
+require File.join(directory, "teambox-client", "httpauth")
+require File.join(directory, "teambox-client", "request")
+require File.join(directory, "teambox-client", "base")

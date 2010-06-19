@@ -1,4 +1,3 @@
-require 'rubygems' # TODO: delete this
 require File.join(File.dirname(__FILE__), '..', 'lib', 'teambox')
 require File.join(File.dirname(__FILE__), 'helpers', 'config_store')
 require 'pp'
