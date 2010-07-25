@@ -11,18 +11,50 @@ module Teambox
     end
 
     # Teambox method
+    def projects(query={})
+      perform_get("/api/1/projects", :query => query)[:projects]
+    end
+
     def activities(query={})
-      perform_get("/activities.json", :query => query)[:activities]
+      perform_get("/api/1/activities", :query => query)[:activities]
     end
 
     def activities_from_project(project_id, query={})
-      perform_get("/projects/#{project_id}/activities.json", :query => query)[:activities]
+      perform_get("/api/1/projects/#{project_id}/activities", :query => query)[:activities]
     end
 
-    def user(id, query={})
-      perform_get("/users/#{id}.json", :query => query)[:user]
+    def people_from_project(project_id, query={})
+      perform_get("/api/1/projects/#{project_id}/people", :query => query)[:people]
+    end
+    
+    def comments_from_project(project_id, query={})
+      perform_get("/api/1/projects/#{project_id}/comments", :query => query)[:comments]
     end
 
+    # Not working, need to skip verify_authenticity_token on the server.
+    def comment_on_project(project_id, body, query={})
+      body = {:comment => {:body => body}, :project_id =>project_id}
+      perform_post("/api/1/projects/#{project_id}/comments", :body => body, :query => {})[:comments]
+    end
+
+    def conversations_from_project(project_id, query={})
+      perform_get("/api/1/projects/#{project_id}/conversations", :query => query)[:conversations]
+    end
+
+    def task_lists_from_project(project_id, query={})
+      perform_get("/api/1/projects/#{project_id}/task_lists", :query => query)[:task_lists]
+    end
+
+    # Task list is not optional at the moment
+    # def tasks_from_project(project_id, query={})
+    #  perform_get("/api/1/projects/#{project_id}/tasks", :query => query)[:tasks]
+    # end
+
+    def user(username, query={})
+      perform_get("/api/1/users/#{username}", :query => query)[:user]
+    end
+
+    
     protected
 
     def self.mime_type(file)
