@@ -18,6 +18,10 @@ Now, run `irb -rubygems` and this snippet to get the list of activities:
     client = Teambox::Base.new(httpauth)
     puts client.activities
 
+By default, *teambox-client* will connect to the hosted service at [teambox.com](http://teambox.com/), optionally you can:
+
+    Teambox::HTTPAuth.new(your_username, your_password, :api_endpoint => 'localhost:3000')
+
 Examples
 -------------------------------------------------------------------------------
 
