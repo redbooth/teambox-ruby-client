@@ -20,7 +20,7 @@ module Teambox
       perform_get("/api/1/activities", :query => query)[:activities]
     end
     # GET /api/1/projects/:project_id/activities
-    def activities_from_project(project_id, query={})
+    def project_activities(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/activities", :query => query)[:activities]
     end
     # Activity show
@@ -29,111 +29,111 @@ module Teambox
       perform_get("/api/1/activities/#{id}", :query => query)[:activity]
     end
     # GET /api/1/activities/:id
-    def activity_from_project(project_id, id, query={})
+    def project_activity(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/activities/#{id}", :query => query)[:activity]
     end    
     # Comments show
     # GET /api/1/projects/:project_id/comments/:id
-    def comment_from_project(project_id, id, query={})
+    def project_comment(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/comments/#{id}", :query => query)[:comment]
     end
     # GET /api/1/projects/:project_id/tasks/:task_id/comments/:id
-    def comment_from_project_task(project_id, task_id, id, query={})
+    def project_task_comment(project_id, task_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/tasks/#{task_id}/comments/#{id}", :query => query)[:comment]
     end
     # GET /api/1/projects/:project_id/conversations/:conversation_id/comments/:id
-    def comment_from_project_conversation(project_id, conversation_id, id, query={})
+    def project_conversation_comment(project_id, conversation_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/tasks/#{conversation_id}/comments/#{id}", :query => query)[:comment]
     end
     # Comments index
     # GET /api/1/projects/:project_id/comments
-    def comments_from_project(project_id, query={})
+    def project_comments(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/comments", :query => query)[:comments]
     end
     # GET /api/1/projects/:project_id/conversations/:conversation_id/comments
-    def comments_from_project_conversation(project_id, conversation_id, query={})
+    def project_conversation_comments(project_id, conversation_id, query={})
       perform_get("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments", :query => query)[:comments]
     end
     # GET /api/1/projects/:project_id/tasks/:task_id/comments
-    def comments_from_project_task(project_id, task_id, query={})
+    def project_task_comments(project_id, task_id, query={})
       perform_get("/api/1/projects/#{project_id}/tasks/#{task_id}/comments", :query => query)[:comments]
     end
     # Comment create
     # POST /api/1/projects/:project_id/comments
-    def create_comment_on_project(project_id, query={})
+    def create_project_comment(project_id, query={})
       perform_post("/api/1/projects/#{project_id}/comments", :query => query)
     end
     # POST /api/1/projects/:project_id/tasks/:task_id/comments
-    def create_comment_on_project_task(project_id, task_id, query={})
+    def create_project_task_comment(project_id, task_id, query={})
       perform_post("/api/1/projects/#{project_id}/tasks/#{task_id}/comments", :query => query)
     end
     # POST /api/1/projects/:project_id/conversations/:conversation_id/comments
-    def create_comment_on_project_conversation(project_id, conversation_id, query={})
+    def create_project_conversation_comment(project_id, conversation_id, query={})
       perform_post("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments", :query => query)
     end
     # Comment convert
     # POST /api/1/projects/:project_id/comments/:id/convert
-    def convert_comment_in_project(project_id, id, query={})
+    def convert_project_comment(project_id, id, query={})
       perform_post("/api/1/projects/#{project_id}/comments/#{id}/convert", :query => query)
     end
     # Comment update
     # PUT /api/1/projects/:project_id/comments/:id
-    def update_comment_in_project(project_id, id, query={})
+    def update_project_comment(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/comments/#{id}", :query => query)
     end
     # PUT /api/1/projects/:project_id/conversations/:conversation_id/comments/:id
-    def update_comment_in_project_conversation(project_id, conversation_id, id, query={})
+    def update_project_conversation_comment(project_id, conversation_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments/#{id}", :query => query)
     end
     # PUT /api/1/projects/:project_id/tasks/:task_id/comments/:id
-    def update_comment_in_project_task(project_id, task_id, id, query={})
+    def update_project_task_comment(project_id, task_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/tasks/#{task_id}/comments/#{id}", :query => query)
     end
     # Comment destroy
     # DELETE /api/1/projects/:project_id/comments/:id
-    def delete_comment_in_project(project_id, id, query={})
+    def delete_project_comment(project_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/comments/#{id}", :query => query)
     end
     # DELETE /api/1/projects/:project_id/conversations/:conversation_id/comments/:id
-    def delete_comment_in_project_conversation(project_id, conversation_id, id, query={})
+    def delete_project_conversation_comment(project_id, conversation_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments/#{id}", :query => query)
     end
     # DELETE /api/1/projects/:project_id/tasks/:task_id/comments/:id
-    def delete_comment_in_project_task(project_id, conversation_id, id, query={})
+    def delete_project_task_comment(project_id, conversation_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/tasks/#{task_id}/comments/#{id}", :query => query)
     end
     # Conversations watch
     # PUT /api/1/projects/:project_id/conversations/:id/watch
-    def watch_conversation_in_project(project_id, id, query={})
+    def watch_project_conversation(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/conversations/#{id}/watch", :query => query)
     end
     # PUT /api/1/projects/:project_id/conversations/:id/unwatch
-    def unwatch_conversation_in_project(project_id, id, query={})
+    def unwatch_project_conversation(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/conversations/#{id}/unwatch", :query => query)
     end
     # Conversation update
     # PUT /api/1/projects/:project_id/conversations/:id
-    def update_conversation_in_project(project_id, id, query={})
+    def update_project_conversation(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/conversations/#{id}", :query => query)
     end
     # Conversation destroy
     # DELETE /api/1/projects/:project_id/conversations/:id
-    def destroy_conversation_in_project(project_id, id, query={})
+    def destroy_project_conversation(project_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/conversations/#{id}", :query => query)
     end
     # Conversation show
     # GET /api/1/projects/:project_id/conversations/:id
-    def conversation_in_project(project_id, id, query={})
+    def project_conversation(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/conversations/#{id}", :query => query)[:conversation]
     end
     # Conversations index
     # GET /api/1/projects/:project_id/conversations
-    def conversations_in_project(project_id, query={})
+    def project_conversations(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/conversations", :query => query)[:conversations]
     end
     # Conversation create
     # POST /api/1/projects/:project_id/conversations
-    def create_conversation_in_project(project_id, query={})
+    def create_project_conversation(project_id, query={})
       perform_post("/api/1/projects/#{project_id}/conversations", :query => query)
     end
     # Invitation destroy
@@ -152,12 +152,12 @@ module Teambox
     end
     # Invitation resend
     # PUT /api/1/projects/:project_id/invitations/:id/resend
-    def invitation_resend(project_id, id, query={})
+    def project_invitation_resend(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/invitations/#{id}/resend", :query => query)
     end
     # Invitation create
     # POST /api/1/projects/:project_id/invitations
-    def create_invitation(project_id, query={})
+    def create_project_invitation(project_id, query={})
       perform_post("/api/1/projects/#{project_id}/invitations", :query => query)
     end
     # Invitation indexes
@@ -166,7 +166,7 @@ module Teambox
       perform_get("/api/1/invitations", :query => query)[:invitations]
     end
     # GET /api/1/projects/:project_id/invitations
-    def invitations_in_project(project_id, query={})
+    def project_invitations(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/invitations", :query => query)[:invitations]
     end
     # Invitaiton show
@@ -175,27 +175,27 @@ module Teambox
       perform_get("/api/1/invitations/#{id}", :query => query)[:invitation]
     end
     # GET /api/1/projects/:project_id/invitations/:id
-    def invitation_in_project(project_id, id, query={})
+    def project_invitation(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/invitations/#{id}", :query => query)[:invitation]
     end
     # People index
     # GET /api/1/projects/:project_id/people
-    def people_in_project(project_id, query={})
+    def project_people(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/people", :query => query)[:people]
     end
     # Person show
     # GET /api/1/projects/:project_id/people/:id
-    def person_in_project(project_id, id, query={})
+    def project_person(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/people/#{id}", :query => query)[:person]
     end
     # Person update
     # PUT /api/1/projects/:project_id/people/:id
-    def update_person_in_project(project_id, id, query={})
+    def update_project_person(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/people/#{id}", :query => query)
     end
     # Person destroy
     # DELETE /api/1/projects/:project_id/people/:id
-    def destroy_person_in_project(project_id, id, query={})
+    def destroy_project_person(project_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/people/#{id}", :query => query)
     end
     # Projects index
@@ -229,48 +229,48 @@ module Teambox
     end
     # Task_lists index
     # GET /api/1/projects/:project_id/task_lists
-    def task_lists_in_project(project_id, query={})
+    def project_task_lists(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/task_lists", :query => query)[:task_lists]
     end
     # Task_list show
     # GET /api/1/projects/:project_id/task_lists/:id
-    def task_list_in_project(project_id, id, query={})
+    def project_task_list(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/task_lists/#{id}", :query => query)[:task_list]
     end
     # Task_list update
     # PUT /api/1/projects/:project_id/task_lists/:id
-    def update_task_list_in_project(project_id, id, query={})
+    def update_project_task_list(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/task_lists/#{id}", :query => query)
     end
     # PUT /api/1/projects/:project_id/task_lists/:id/archive
-    def archive_task_list_in_project(project_id, id, query={})
+    def archive_project_task_list(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/task_lists/#{id}/archive", :query => query)
     end
     # PUT /api/1/projects/:project_id/task_lists/:id/unarchive
-    def unarchive_task_list_in_project(project_id, id, query={})
+    def unarchive_project_task_list(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/task_lists/#{id}/unarchive", :query => query)
     end
     # PUT /api/1/projects/:project_id/task_lists/reorder
-    def reorder_task_list_in_project(project_id, query={})
+    def reorder_project_task_list(project_id, query={})
       perform_put("/api/1/projects/#{project_id}/task_lists/reorder", :query => query)
     end
     # Task_list create
     # POST /api/1/projects/:project_id/task_lists
-    def create_task_list_in_project(project_id, query={})
+    def create_project_task_list(project_id, query={})
       perform_post("/api/1/projects/#{project_id}/task_lists", :query => query)
     end
     # Task_list destroy
     # DELETE /api/1/projects/:project_id/task_lists/:id
-    def destroy_task_list_in_project(project_id, id, query={})
+    def destroy_project_task_list(project_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/task_lists/#{id}", :query => query)
     end
     # Tasks indexes
     # GET /api/1/projects/:project_id/tasks
-    def tasks_in_project(project_id, query={})
+    def project_tasks(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/tasks", :query => query)[:tasks]
     end
     # GET /api/1/projects/:project_id/task_lists/:task_list_id/tasks
-    def tasks_in_task_list_for_project(project_id, task_list_id, query={})
+    def project_task_list_tasks(project_id, task_list_id, query={})
       perform_get("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks", :query => query)[:tasks]
     end
     # GET /api/1/tasks
@@ -279,11 +279,11 @@ module Teambox
     end
     # Task show
     # GET /api/1/projects/:project_id/tasks/:id
-    def task_in_project(project_id, id, query={})
+    def project_task(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/tasks/#{id}", :query => query)[:task]
     end
     # GET /api/1/projects/:project_id/task_lists/:task_list_id/tasks/:id
-    def task_in_task_list_for_project(project_id, task_list_id, id, query={})
+    def project_task_list_task(project_id, task_list_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks/#{id}", :query => query)[:task]
     end
     # GET /api/1/tasks/:id
@@ -292,16 +292,16 @@ module Teambox
     end
     # Task create
     # POST /api/1/projects/:project_id/task_lists/:task_list_id/tasks
-    def create_task_in_task_list_for_project(project_id, task_list_id, query={})
+    def create_project_task_list_task(project_id, task_list_id, query={})
       perform_post("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks", :query => query)
     end
     # Task update
     # PUT /api/1/projects/:project_id/tasks/:id
-    def update_task_in_project(project_id, id, query={})
+    def update_project_task(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/tasks/#{id}", :query => query)
     end
     # PUT /api/1/projects/:project_id/task_lists/:task_list_id/tasks/:id
-    def update_task_in_task_list_for_project(project_id, task_list_id, id, query={})
+    def update_project_task_list_task(project_id, task_list_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks/#{id}", :query => query)
     end
     # PUT /api/1/tasks/:id
@@ -310,7 +310,7 @@ module Teambox
     end
     # Task watch
     # PUT /api/1/projects/:project_id/tasks/:id/watch
-    def watch_task_in_project(project_id, id, query={})
+    def watch_project_task(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/tasks/#{id}/watch", :query => query)
     end
     # PUT /api/1/tasks/:id/watch
@@ -318,7 +318,7 @@ module Teambox
       perform_put("/api/1/tasks/#{id}/watch", :query => query)
     end
     # PUT /api/1/projects/:project_id/tasks/:id/unwatch
-    def unwatch_task_in_project(project_id, id, query={})
+    def unwatch_project_task(project_id, id, query={})
       perform_put("/api/1/projects/#{project_id}/tasks/#{id}/unwatch", :query => query)
     end
     # PUT /api/1/tasks/:id/unwatch
@@ -327,16 +327,16 @@ module Teambox
     end
     # Task reorder
     # PUT /api/1/projects/:project_id/tasks/reorder
-    def reorder_tasks_in_project(id, query={})
+    def reorder_project_tasks(id, query={})
       perform_put("/api/1/projects/#{project_id}/tasks/reorder", :query => query)
     end
     # Task destroy
     # DELETE /api/1/projects/:project_id/tasks/:id
-    def destroy_task_in_project(project_id, id, query={})
+    def destroy_project_task(project_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/tasks/#{id}", :query => query)
     end
     # DELETE /api/1/projects/:project_id/task_lists/:task_list_id/tasks/:id
-    def destroy_task_in_task_list_for_project(project_id, task_list_id, id, query={})
+    def destroy_project_task_list_task(project_id, task_list_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks/#{id}", :query => query)
     end
     # DELETE /api/1/tasks/:id
@@ -345,22 +345,22 @@ module Teambox
     end
     # Uploads index
     # GET /api/1/projects/:project_id/uploads
-    def uploads_in_project(project_id, query={})
+    def project_uploads(project_id, query={})
       perform_get("/api/1/projects/#{project_id}/uploads", :query => query)[:uploads]
     end
     # Upload show
     # GET /api/1/projects/:project_id/uploads/:id
-    def upload_in_project(project_id, id, query={})
+    def project_upload(project_id, id, query={})
       perform_get("/api/1/projects/#{project_id}/uploads/#{id}", :query => query)[:upload]
     end
     # Upload create
     # POST /api/1/projects/:project_id/uploads
-    def create_upload_in_project(project_id, query={})
+    def create_project_upload(project_id, query={})
       perform_post("/api/1/projects/#{project_id}/uploads", :query => query)
     end
     # Upload destroy
     # DELETE /api/1/projects/:project_id/uploads/:id
-    def destroy_upload_in_project(project_id, id, query={})
+    def destroy_project_upload(project_id, id, query={})
       perform_delete("/api/1/projects/#{project_id}/uploads/#{id}", :query => query)
     end
     # Users index 
