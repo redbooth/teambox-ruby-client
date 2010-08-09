@@ -2,6 +2,7 @@ require "forwardable"
 require "hashie"
 require "httparty"
 require "yajl"
+require "cgi"
 
 module Teambox
   include HTTParty

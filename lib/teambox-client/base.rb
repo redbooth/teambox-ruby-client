@@ -61,33 +61,45 @@ module Teambox
     # Comment create
     # POST /api/1/projects/:project_id/comments
     def create_project_comment(project_id, query={})
-      perform_post("/api/1/projects/#{project_id}/comments", :query => query)
+      if include_file?(query)
+        perform_post("/api/1/projects/#{project_id}/comments", build_multipart_bodies({:comment => query}) )
+      else
+        perform_post("/api/1/projects/#{project_id}/comments", :body => {:comment => query})
+      end
     end
     # POST /api/1/projects/:project_id/tasks/:task_id/comments
     def create_project_task_comment(project_id, task_id, query={})
-      perform_post("/api/1/projects/#{project_id}/tasks/#{task_id}/comments", :query => query)
+      if include_file?(query)
+        perform_post("/api/1/projects/#{project_id}/tasks/#{task_id}/comments", build_multipart_bodies({:comment => query}) )
+      else
+        perform_post("/api/1/projects/#{project_id}/tasks/#{task_id}/comments", :body => {:comment => query})
+      end
     end
     # POST /api/1/projects/:project_id/conversations/:conversation_id/comments
     def create_project_conversation_comment(project_id, conversation_id, query={})
-      perform_post("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments", :query => query)
+      if include_file?(query)
+        perform_post("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments", build_multipart_bodies({:comment => query}) )
+      else
+        perform_post("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments", :body => {:comment => query})
+      end
     end
     # Comment convert
     # POST /api/1/projects/:project_id/comments/:id/convert
     def convert_project_comment(project_id, id, query={})
-      perform_post("/api/1/projects/#{project_id}/comments/#{id}/convert", :query => query)
+      perform_post("/api/1/projects/#{project_id}/comments/#{id}/convert", :body => {:comment => query})
     end
     # Comment update
     # PUT /api/1/projects/:project_id/comments/:id
     def update_project_comment(project_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/comments/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/comments/#{id}", :body => {:comment => query})
     end
     # PUT /api/1/projects/:project_id/conversations/:conversation_id/comments/:id
     def update_project_conversation_comment(project_id, conversation_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/conversations/#{conversation_id}/comments/#{id}", :body => {:comment => query})
     end
     # PUT /api/1/projects/:project_id/tasks/:task_id/comments/:id
     def update_project_task_comment(project_id, task_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/tasks/#{task_id}/comments/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/tasks/#{task_id}/comments/#{id}", :body => {:comment => query})
     end
     # Comment destroy
     # DELETE /api/1/projects/:project_id/comments/:id
@@ -114,7 +126,7 @@ module Teambox
     # Conversation update
     # PUT /api/1/projects/:project_id/conversations/:id
     def update_project_conversation(project_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/conversations/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/conversations/#{id}", :body => {:conversation => query})
     end
     # Conversation destroy
     # DELETE /api/1/projects/:project_id/conversations/:id
@@ -134,7 +146,7 @@ module Teambox
     # Conversation create
     # POST /api/1/projects/:project_id/conversations
     def create_project_conversation(project_id, query={})
-      perform_post("/api/1/projects/#{project_id}/conversations", :query => query)
+      perform_post("/api/1/projects/#{project_id}/conversations", :body => {:conversation => query})
     end
     # Invitation destroy
     # DELETE /api/1/invitations/:id
@@ -191,7 +203,7 @@ module Teambox
     # Person update
     # PUT /api/1/projects/:project_id/people/:id
     def update_project_person(project_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/people/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/people/#{id}", :body => {:person => query})
     end
     # Person destroy
     # DELETE /api/1/projects/:project_id/people/:id
@@ -211,16 +223,16 @@ module Teambox
     # Project update
     # PUT /api/1/projects/:id
     def update_project(project_id, query={})
-      perform_put("/api/1/projects/#{project_id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}", :body => {:project => query})
     end
     # PUT /api/1/projects/:id/transfer
     def transfer_project(project_id, query={})
-      perform_put("/api/1/projects/#{project_id}/transfer", :query => query)
+      perform_put("/api/1/projects/#{project_id}/transfer", :body => {:project => query})
     end
     # Project create
     # POST /api/1/projects
     def create_project(query={})
-      perform_post("/api/1/projects", :query => query)
+      perform_post("/api/1/projects", :body => {:project => query})
     end
     # Project destroy
     # DELETE /api/1/projects/:id
@@ -240,7 +252,7 @@ module Teambox
     # Task_list update
     # PUT /api/1/projects/:project_id/task_lists/:id
     def update_project_task_list(project_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/task_lists/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/task_lists/#{id}", :body => {:task_list => query})
     end
     # PUT /api/1/projects/:project_id/task_lists/:id/archive
     def archive_project_task_list(project_id, id, query={})
@@ -257,7 +269,7 @@ module Teambox
     # Task_list create
     # POST /api/1/projects/:project_id/task_lists
     def create_project_task_list(project_id, query={})
-      perform_post("/api/1/projects/#{project_id}/task_lists", :query => query)
+      perform_post("/api/1/projects/#{project_id}/task_lists", :body => {:task_lists => query})
     end
     # Task_list destroy
     # DELETE /api/1/projects/:project_id/task_lists/:id
@@ -293,20 +305,20 @@ module Teambox
     # Task create
     # POST /api/1/projects/:project_id/task_lists/:task_list_id/tasks
     def create_project_task_list_task(project_id, task_list_id, query={})
-      perform_post("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks", :query => query)
+      perform_post("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks", :body => {:task => query})
     end
     # Task update
     # PUT /api/1/projects/:project_id/tasks/:id
     def update_project_task(project_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/tasks/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/tasks/#{id}", :body => {:task => query})
     end
     # PUT /api/1/projects/:project_id/task_lists/:task_list_id/tasks/:id
     def update_project_task_list_task(project_id, task_list_id, id, query={})
-      perform_put("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks/#{id}", :query => query)
+      perform_put("/api/1/projects/#{project_id}/task_lists/#{task_list_id}/tasks/#{id}", :body => {:task => query})
     end
     # PUT /api/1/tasks/:id
     def update_task(id, query={})
-      perform_put("/api/1/tasks/#{id}", :query => query)
+      perform_put("/api/1/tasks/#{id}", :body => {:task => query})
     end
     # Task watch
     # PUT /api/1/projects/:project_id/tasks/:id/watch
@@ -356,7 +368,7 @@ module Teambox
     # Upload create
     # POST /api/1/projects/:project_id/uploads
     def create_project_upload(project_id, query={})
-      perform_post("/api/1/projects/#{project_id}/uploads", :query => query)
+      perform_post("/api/1/projects/#{project_id}/uploads", build_multipart_bodies({:upload => query}) )
     end
     # Upload destroy
     # DELETE /api/1/projects/:project_id/uploads/:id
@@ -394,18 +406,75 @@ module Teambox
 
     CRLF = "\r\n"
 
+    def self.include_file?(hash)
+      stack = []
+
+      hash.each do |k, v|
+        if v.is_a?(Hash)
+          stack << [k,v]
+        elsif v.is_a?(Array)
+          v.each_with_index do |value,index|
+            stack << ["#{k}[#{index}]", value]
+          end
+        else
+          return true if v.class == File
+        end
+      end
+
+      stack.each do |parent, hash|
+        hash.each do |k, v|
+          if v.is_a?(Hash)
+            stack << ["#{parent}[#{k}]", v]
+          else
+            return true if v.class == File
+          end
+        end
+      end
+      false
+    end
+
+    def include_file?(hash) self.class.include_file?(hash) end
+
     def self.build_multipart_bodies(parts)
+      params = {}
+      stack = []
+    
+      parts.each do |k, v|
+        if v.is_a?(Hash)
+          stack << [k,v]
+        elsif v.is_a?(Array)
+          v.each_with_index do |value,index|
+            stack << ["[#{k}][#{index}]", value]
+          end
+        else
+          params.merge!({"#{k}" => v})
+        end
+      end
+
+      stack.each do |parent, hash|
+        hash.each do |k, v|
+          if v.is_a?(Hash)
+            stack << ["#{parent}[#{k}]", v]
+          elsif v.is_a?(Array)
+            v.each_with_index do |value,index|
+              stack << ["#{parent}[#{k}][#{index}]", value]
+            end
+          else
+            params.merge!({"#{parent}[#{k}]" => v})
+          end
+        end
+      end
+
       boundary = Time.now.to_i.to_s(16)
       body = ""
-      parts.each do |key, value|
-        esc_key = CGI.escape(key.to_s)
+      params.each do |key, value|
         body << "--#{boundary}#{CRLF}"
         if value.respond_to?(:read)
-          body << "Content-Disposition: form-data; name=\"#{esc_key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}"
+          body << "Content-Disposition: form-data; name=\"#{key}\"; filename=\"#{File.basename(value.path)}\"#{CRLF}"
           body << "Content-Type: #{mime_type(value.path)}#{CRLF*2}"
           body << value.read
         else
-          body << "Content-Disposition: form-data; name=\"#{esc_key}\"#{CRLF*2}#{value}"
+          body << "Content-Disposition: form-data; name=\"#{key}\"#{CRLF*2}#{value}"
         end
         body << CRLF
       end
