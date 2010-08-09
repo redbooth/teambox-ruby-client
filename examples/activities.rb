@@ -1,4 +1,5 @@
-require File.join(File.dirname(__FILE__), '..', 'lib', 'teambox')
+require 'rubygems'
+require File.join(File.dirname(__FILE__), '..', 'lib', 'teambox-client')
 require File.join(File.dirname(__FILE__), 'helpers', 'config_store')
 require 'pp'
 
