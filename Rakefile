@@ -8,14 +8,10 @@ begin
     gem.summary     = "A ruby gem wrapper for Teambox API"
     gem.description = "Provides methods to read and write to Teambox for ruby apps"
     gem.email       = "pablo@teambox.com"
-    gem.homepage    = "http://github.com/micho/teambox-ruby"
-    gem.authors     = ["Pablo Villalba", "John Nunemaker"]
+    gem.homepage    = "http://github.com/teambox/teambox-ruby-client"
+    gem.authors     = ["Pablo Villalba", "James Urquhart"]
 
-    gem.add_dependency("hashie", "~> 0.2.0")
-    gem.add_dependency("httparty", "~> 0.5.0")
-    gem.add_dependency("yajl-ruby", "~> 0.7.0")
-
-    #gem.add_development_dependency ""
+    gem.add_dependency("httparty", "~> 0.7.4")
   end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
@@ -43,4 +39,5 @@ Rake::RDocTask.new do |rdoc|
   rdoc.title = "teambox-ruby #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
+  rdoc.rdoc_files.include('lib/**/**/*.rb')
 end
