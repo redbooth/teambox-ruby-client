@@ -3,5 +3,9 @@ module Teambox
     def name
       "#{@data['first_name']} #{@data['last_name']}"
     end
+    
+    def url
+      "/users/#{@data['id']}"
+    end
   end
 end
