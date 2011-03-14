@@ -19,7 +19,7 @@ module Teambox
       @data['assigned_id'] = set_reference('Person', value).id
     end
     
-    def due_on(value)
+    def due_on
       @data['due_on'] ? Date.parse(@data['due_on']) : nil
     end
     

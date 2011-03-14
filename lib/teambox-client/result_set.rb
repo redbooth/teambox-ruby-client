@@ -38,9 +38,11 @@ module Teambox
     end
     
     def each(&block)
-      @objects.each do |object|
-        yield object
-      end
+      @objects.each(&block)
+    end
+    
+    def map(&block)
+      @objects.map(&block)
     end
     
     def length
