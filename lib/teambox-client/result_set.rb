@@ -43,22 +43,30 @@ module Teambox
       end
     end
     
+    def length
+      @objects.length
+    end
+    
     def empty?
       @objects.length == 0
     end
     
     # get previous items
     def prev
-      @client.get(@request[:url], :query => (@request[:query]).merge(:before_id => @first_id))
+      @client.get(@request[:url], {}, :query => (@request[:query]).merge(:max_id => @first_id))
     end
     
     # get next items
     def next
-      @client.get(@request[:url], :query => (@request[:query]).merge(:since_id => @last_id))
+      @client.get(@request[:url], {}, :query => (@request[:query]).merge(:since_id => @last_id))
     end
     
     def get_reference(type, id)
       @references[type.to_s + id.to_s]
+    end
+    
+    def [](idx)
+      @objects[idx]
     end
   end
 end

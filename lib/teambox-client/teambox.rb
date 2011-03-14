@@ -1,7 +1,6 @@
 module Teambox
   class Client
     include HTTParty
-    format :json
 
     def initialize(opts = {})
       opts[:base_uri] ||= 'https://teambox.com/api/1'
@@ -41,23 +40,33 @@ module Teambox
     end
     
     def safe_get(path, query={}, options={})
-      api_unwrap(self.class.get(path, {:query => query}.merge(options)), {:url => path, :query => query}) #rescue nil
+      api_unwrap(self.class.get(path, {:query => query}.merge(options)), {:url => path, :query => query}) rescue nil
+    end
+    
+    # urls
+    
+    def projects(query={})
+      get('/projects', query)
+    end
+    
+    def project(id)
+      get("/projects/#{id}")
     end
 
     protected
     
     def api_unwrap(response, request={})
-      data = JSON.parse(response.body)
+      data = JSON.parse(response.body) rescue nil
       if [200, 201, 202].include? response.response.code.to_i
         raise StandardError.new('Please update your Teambox') unless response.has_key?('type')
-        
-        if response['type'] == 'List'
+        if data['type'] == 'List'
           ResultSet.new(self, request, data['objects'], data['references'])
         else
           Teambox.create_model(data['type'], data, ResultSet.new(self, request, [], []))
         end
       else
-        raise APIError.new(response.response.code, data['errors'])
+        error_list = data ? data['errors'] : {'type' => 'UnknownError', 'message' => data}
+        raise APIError.new(response.response.code, error_list)
       end
     end
 

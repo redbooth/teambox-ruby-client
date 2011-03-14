@@ -7,7 +7,7 @@ module Teambox
       get_reference('User', @data, 'user_id', 'user')
     end
     
-    def user
+    def task_list
       get_reference('TaskList', @data, 'task_list_id', 'task_list')
     end
     
