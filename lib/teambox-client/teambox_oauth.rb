@@ -29,7 +29,7 @@ module Teambox
     end
     
     def authorize_from_access
-      @access_token = ::OAuth1::AccessToken.new(nil, @auth[:oauth_token])
+      @access_token = ::OAuth2::AccessToken.new(nil, @auth[:oauth_token])
     end
   end
 end
