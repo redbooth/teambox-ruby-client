@@ -1,18 +1,48 @@
+
 module Teambox
   class Client
     include HTTParty
-
+    include Teambox::OAuth
+    
     def initialize(opts = {})
       opts[:base_uri] ||= 'https://teambox.com/api/1'
       self.class.base_uri(opts[:base_uri])
-      self.class.basic_auth(opts[:auth][:user], opts[:auth][:password]) if opts[:auth]
       
-      @auth = opts[:auth]
-      @current_user = nil
+      @base_uri = opts[:base_uri]
+      @auth = {}
+      @auth.merge!(opts[:auth])
+      @consumer = consumer if oauth?
     end
     
-    def authenticate
-      current_user
+    def oauth?
+      !@auth[:oauth_app_id].nil?
+    end
+    
+    def authorize_url(opts={})
+      if oauth?
+        @consumer.web_server.authorize_url({:redirect_url => @auth[:redirect_url]}.merge(opts))
+      else
+        nil
+      end
+    end
+    
+    def authenticate(opts={})
+      @current_user = nil
+      if oauth?
+        if opts[:oauth_verifier]
+          authorize_from_request(opts[:oauth_verifier])
+        elsif opts[:oauth_token]
+          @auth.merge!({:oauth_token => opts[:oauth_token], :oauth_secret => opts[:oauth_secret]})
+          authorize_from_access
+        end
+      else
+        if opts[:user]
+          @auth.merge!({:user => opts[:user], :password => opts[:password]})
+          self.class.basic_auth(@auth[:user], @auth[:password])
+        end
+      end
+      
+      !current_user.nil?
     end
 
     def authenticated?
@@ -24,23 +54,23 @@ module Teambox
     end
 
     def get(path, query={}, options={})
-      api_unwrap self.class.get(path, {:query => query}.merge(options)), {:url => path, :query => query}
+      api_unwrap perform_request(:get, {:query => query)}.merge(options)), {:url => path, :query => query}
     end
 
     def post(path, query={}, options={})
-      api_unwrap self.class.post(path, {:body => query}.merge(options)), {:url => path, :body => query}
+      api_unwrap perform_request(:post, {:body => query}.merge(options)), {:url => path, :body => query}
     end
 
     def put(path, query={}, options={})
-      api_unwrap self.class.put(path, {:body => query}.merge(options)), {:url => path, :body => query}
+      api_unwrap perform_request(:put, {:body => query}.merge(options)), {:url => path, :body => query}
     end
 
     def delete(path, query={}, options={})
-      api_unwrap self.class.delete(path, {:body => query}.merge(options)), {:url => path, :body => query}
+      api_unwrap perform_request(:delete, {:body => query}.merge(options)), {:url => path, :body => query}
     end
     
     def safe_get(path, query={}, options={})
-      api_unwrap(self.class.get(path, {:query => query}.merge(options)), {:url => path, :query => query}) rescue nil
+      api_unwrap(perform_request(:get, path, {:query => query}.merge(options)), {:url => path, :query => query}) rescue nil
     end
     
     # urls
@@ -54,6 +84,14 @@ module Teambox
     end
 
     protected
+    
+    def perform_request(method, path, options)
+      options[:headers] ||= {}
+      headers = options[:headers]
+      
+      options[:query][:access_token] = @access_token.token
+      self.class.send(method, path, options)
+    end
     
     def api_unwrap(response, request={})
       data = JSON.parse(response.body) rescue nil
