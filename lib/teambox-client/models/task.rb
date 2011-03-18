@@ -11,10 +11,20 @@ module Teambox
       get_reference('TaskList', @data, 'task_list_id', 'task_list')
     end
     
+    def recent_comments
+      get_references('Comment', @data, 'recent_comment_ids', 'recent_comments')
+    end
+    
+    def first_comment
+      get_reference('Comment', @data, 'first_comment_id', 'first_comment')
+    end
+    
+    # The Teambox::Person assigned this task
     def assigned
       get_reference('Person', @data, 'assigned_id', 'assigned')
     end
     
+    # Sets the Teambox::Person assigned this task
     def assigned=(value)
       @data['assigned_id'] = set_reference('Person', value).id
     end
@@ -39,7 +49,7 @@ module Teambox
       @data['status'] = STATUSES[value]
     end
     
-    def url
+    def url #:nodoc:
       "/tasks/#{@data['id']}"
     end
   end

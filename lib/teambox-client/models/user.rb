@@ -4,7 +4,7 @@ module Teambox
       "#{@data['first_name']} #{@data['last_name']}"
     end
     
-    def url
+    def url #:nodoc:
       "/users/#{@data['id']}"
     end
   end

@@ -1,7 +1,9 @@
 module Teambox
+  # Methods used to authenticate with OAuth on teambox.com. Normally you won't have to call these.
   module OAuth
     attr_accessor :access_token
     
+    # OAuth consumer required for authentication
     def consumer
       return nil if @auth[:oauth_app_id].nil?
       @consumer ||= OAuth2::Client.new(@auth[:oauth_app_id], @auth[:oauth_app_secret], :site => consumer_url, :authorize_path => consumer_url+'/oauth/authorize?response_type=code')
@@ -13,10 +15,12 @@ module Teambox
       uri.to_s
     end
     
+    # Generates a new request token
     def request_token(options={})
       @request_token ||= consumer.get_request_token(options)
     end
     
+    # Is the client authorized via OAuth?
     def authorized?
       !@access_token.nil?
     end
@@ -28,6 +32,7 @@ module Teambox
       @access_token
     end
     
+    # Authorizes the client from an existing OAuth token
     def authorize_from_access
       @access_token = ::OAuth2::AccessToken.new(nil, @auth[:oauth_token])
     end

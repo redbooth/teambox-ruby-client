@@ -1,5 +1,5 @@
 module Teambox
-  class Person < Teambox::Resource
+  class Page < Teambox::Resource
     def user
       get_reference('User', @data, 'user_id', 'user')
     end
@@ -9,7 +9,7 @@ module Teambox
     end
     
     def url #:nodoc:
-      "/projects/#{@data['project_id']}/people/#{@data['id']}"
+      "/projects/#{@data['project_id']}/#{@data['id']}"
     end
   end
 end

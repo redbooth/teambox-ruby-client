@@ -1,8 +1,9 @@
 module Teambox
+  # Represents a list of objects along with referenced objects returned by the API.
   class ResultSet
     attr_reader :first_id, :last_id, :client, :references, :objects
     
-    def initialize(client, request, objects, references)
+    def initialize(client, request, objects, references) #:nodoc:
       @client = client
       @request = request
       @objects = objects.map { |o| Teambox.create_model(o['type'], o, self) }
@@ -13,6 +14,7 @@ module Teambox
       @last_id = id_list[-1]
     end
     
+    # References resource in the current Teambox::ResultSet
     def set_reference(klass, resource)
       real_resource = if resource.is_a? Teambox::Resource
         resource
@@ -24,49 +26,53 @@ module Teambox
       real_resource
     end
     
+    # Array variant of set_reference
     def set_references(klass, list)
       list.each { |o| set_reference(klass, o) }
     end
     
+    # Gets a referenced object
     def get_reference(klass, id)
       @references[klass.to_s + id]
     end
     
+    # Array variant of get_reference
     def get_references(klass, ids)
       classname = klass.to_s
       ids.map{ |id| @references[classname + id] }.compact
     end
     
+    # Yields for each object
     def each(&block)
       @objects.each(&block)
     end
     
+    # Yields for each object
     def map(&block)
       @objects.map(&block)
     end
     
+    # Length of object list
     def length
       @objects.length
     end
     
+    # Is the object list empty?
     def empty?
       @objects.length == 0
     end
     
-    # get previous items
+    # Gets previous items as a Teambox::ResultSet
     def prev
       @client.get(@request[:url], {}, :query => (@request[:query]).merge(:max_id => @first_id))
     end
     
-    # get next items
+    # Gets next items as a Teambox::ResultSet
     def next
       @client.get(@request[:url], {}, :query => (@request[:query]).merge(:since_id => @last_id))
     end
     
-    def get_reference(type, id)
-      @references[type.to_s + id.to_s]
-    end
-    
+    # Indexes into object array
     def [](idx)
       @objects[idx]
     end

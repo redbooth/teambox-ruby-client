@@ -4,7 +4,7 @@ module Teambox
       get_reference('User', @data, 'user_id', 'user')
     end
     
-    def url
+    def url #:nodoc:
       "/task_lists/#{@data['id']}"
     end
   end
