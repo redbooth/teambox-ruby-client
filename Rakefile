@@ -12,6 +12,7 @@ begin
     gem.authors     = ["Pablo Villalba", "James Urquhart"]
 
     gem.add_dependency("httparty", "~> 0.7.4")
+    gem.add_dependency("oauth2", "~> 0.1.1")
   end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
@@ -33,7 +34,7 @@ Rake::RDocTask.new do |rdoc|
   end
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "teambox-ruby #{version}"
+  rdoc.title = "teambox-client #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/**/*.rb')
 end
