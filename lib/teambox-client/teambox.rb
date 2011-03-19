@@ -161,6 +161,8 @@ module Teambox
         end
       else
         error_list = data ? data['errors'] : {'type' => 'UnknownError', 'message' => data}
+        error_list['type'] = error_list['type'][0] if error_list['type'].is_a? Array
+        error_list['message'] = error_list['message'][0] if error_list['message'].is_a? Array
         raise APIError.new(response.response.code, error_list)
       end
     end
