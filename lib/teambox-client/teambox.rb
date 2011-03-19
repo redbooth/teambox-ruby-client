@@ -1,6 +1,47 @@
-
+# Teambox API wrapper. See Teambox::Client for more details.
 module Teambox
   # This is the entrypoint to the Teambox API.
+  #
+  # == Basic Usage
+  # 
+  # Create a Teambox::Client, passing in your authentication detials in :auth.
+  # Then use one of the helper methods to get data.
+  #
+  #   client = Teambox::Client.new(:auth => {:user => 'frank', :password => 'papapa'})
+  #   client.current_user # == frank
+  #   client.project('earthworks')
+  #
+  # The methods get, post, put, delete, and safe_get are provided in case you want to 
+  # access an API method not covered by a helper. e.g.:
+  #
+  #   client.get('/account')
+  #
+  # The API will either return a Teambox::Resource, or a Teambox::ResultSet in the case of
+  # index methods.
+  #
+  # Errors returned by the api are thrown as a Teambox::APIError, so beware of this when writing
+  # your api code.
+  #
+  #   begin
+  #     client.project('earthworks').create_conversation(:name => 'Serious discussion', :body => 'We need a serious discussion')
+  #   rescue Teambox::APIError => e
+  #     puts "Something went wrong: #{e.inspect}"
+  #   end
+  #
+  # == OAuth authentication
+  #
+  # To authenticate via OAuth (currently not supported on teambox.com), you will need
+  # to pass in your consumer key, secret, and redirect url in :auth. Then use authorize_url 
+  # and authorize to complete authentication.
+  #
+  #   client = Teambox::Client.new(:auth => {
+  #     :oauth_app_id => 'h6K1Ru9sVFbPGEK5v9gQFPHTNZ5IRsVCGNeGENQ3',
+  #     :oauth_app_secret => 'fec4x9P7atC666JzF6WEZIeY6pVv1lCp6aLfVJBw',
+  #     :redirect_url => 'http://www.myapp.com/auth/teambox'})
+  #   client.authorize_url # Open this in your browser
+  #   client.authorize(:oauth_verifier => '1234') # Code returned from teambox
+  #
+  #
   class Client
     include HTTParty
     include Teambox::OAuth
@@ -126,8 +167,10 @@ module Teambox
 
   end
 
+  # Exception handling for API Errors
   class APIError < StandardError
-    attr_reader :error_type, :status_code
+    attr_reader :error_type  # Type of error. See the API Docs for a list of error types
+    attr_reader :status_code # HTTP status code returned
     def initialize(status_code, details)
       @error_type = details['type'].to_sym
       @status_code = status_code
@@ -135,6 +178,7 @@ module Teambox
     end
   end
   
+  # Exception handling unknown Teambox::Resource types
   class UnknownResourceError < APIError
     def initialize(type)
       super(200, {'type' => 'UnknownResource', :message => "Unknown Resource #{type}"})
@@ -150,7 +194,12 @@ module Teambox
     end
   end
   
-  # Represents an object located on Teambox
+  # Represents an object located on Teambox.
+  #
+  # Most resources belonging to a Teambox::Project can be modified, in which case you can use
+  # the save, destroy, and reload methods.
+  #
+  # All attributes are exposed by the method_missing handler.
   class Resource
     attr_accessor :list, :data
     
@@ -163,10 +212,12 @@ module Teambox
       @data['id']
     end
     
+    # The time this object was created
     def created_at
       @data.has_key?('created_at') ? Time.parse(data['created_at']) : nil
     end
     
+    # The last time this object was updated
     def updated_at
       @data.has_key?('updated_at') ? Time.parse(data['updated_at']) : nil
     end
@@ -185,6 +236,7 @@ module Teambox
     end
     
     # Reloads the resource from source data
+    #   @returns self
     def reload
       if @list.client && url
         updated = @list.client.get(url) rescue nil
@@ -196,6 +248,7 @@ module Teambox
     end
     
     # Saves the resource to teambox
+    #   @returns true if saved
     def save
       if @list.client && url
         updated = @list.client.put(url, @data) rescue nil

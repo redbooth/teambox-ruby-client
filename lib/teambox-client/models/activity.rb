@@ -10,6 +10,11 @@ module Teambox
       get_reference(@data['target_type'], @data, 'target_id', 'target')
     end
     
+    # The Teambox::Project this activity belongs to
+    def project
+      get_reference('Project', @data, 'project_id', 'project')
+    end
+    
     # The target of the comment if this is a Teambox::Comment
     def comment_target
       get_reference(@data['comment_target_type'], @data, 'comment_target_id', 'comment_target')
