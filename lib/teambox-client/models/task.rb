@@ -47,7 +47,7 @@ module Teambox
     end
     
     def comment=(value)
-      @data['comment_attributes'] = {'0' => {'body' => value}}
+      @data['comments_attributes'] = {'0' => {'body' => value}}
     end
     
     # Current status
@@ -56,7 +56,7 @@ module Teambox
     end
     
     def status_name=(value)
-      @data['status'] = STATUSES[value]
+      @data['status'] = STATUS_NAMES.index(value.to_sym)
     end
     
     def url #:nodoc:
