@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{teambox-client}
-  s.version = "0.3.0"
+  s.version = "0.3.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Pablo Villalba", "James Urquhart"]
-  s.date = %q{2011-03-19}
+  s.date = %q{2011-03-23}
   s.description = %q{Provides methods to read and write to Teambox for ruby apps}
   s.email = %q{pablo@teambox.com}
   s.extra_rdoc_files = [
