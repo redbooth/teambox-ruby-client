@@ -37,7 +37,7 @@ module Teambox
   #   client = Teambox::Client.new(:auth => {
   #     :oauth_app_id => 'h6K1Ru9sVFbPGEK5v9gQFPHTNZ5IRsVCGNeGENQ3',
   #     :oauth_app_secret => 'fec4x9P7atC666JzF6WEZIeY6pVv1lCp6aLfVJBw',
-  #     :redirect_url => 'http://www.myapp.com/auth/teambox'})
+  #     :redirect_uri => 'http://www.myapp.com/auth/teambox'})
   #   client.authorize_url # Open this in your browser
   #   client.authorize(:oauth_verifier => '1234') # Code returned from teambox
   #
@@ -52,9 +52,10 @@ module Teambox
       self.class.base_uri(opts[:base_uri])
       
       @base_uri = opts[:base_uri]
-      @auth = {}
-      authenticate(opts[:auth]) if opts[:auth]
+      @auth = opts[:auth] || {}
       @consumer = consumer if oauth?
+      
+      authenticate(opts[:auth])
     end
     
     # Returns true if oauth is being used for authentication
@@ -65,7 +66,7 @@ module Teambox
     # Returns the URL required to authenticate access if using OAuth
     def authorize_url(opts={})
       if oauth?
-        @consumer.web_server.authorize_url({:redirect_url => @auth[:redirect_url]}.merge(opts))
+        @consumer.web_server.authorize_url({:redirect_uri => @auth[:redirect_uri]}.merge(opts))
       else
         nil
       end
@@ -78,7 +79,7 @@ module Teambox
         if opts[:oauth_verifier]
           authorize_from_request(opts[:oauth_verifier])
         elsif opts[:oauth_token]
-          @auth.merge!({:oauth_token => opts[:oauth_token], :oauth_secret => opts[:oauth_secret]})
+          @auth.merge!({:oauth_token => opts[:oauth_token]})
           authorize_from_access
         end
       else
