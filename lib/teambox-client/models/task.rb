@@ -52,11 +52,11 @@ module Teambox
     
     # Current status
     def status_name
-      Task::STATUS_NAMES[@data['status']]
+      STATUS_NAMES[@data['status']]
     end
     
     def status_name=(value)
-      @data['status'] = Task::STATUS_NAMES.index(value.to_sym)
+      @data['status'] = STATUS_NAMES.index(value.to_sym)
     end
     
     def url #:nodoc:

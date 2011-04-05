@@ -25,22 +25,22 @@ module Teambox
     
     # The name of the status assigned to the Teambox::Task at time of posting
     def status_name
-      Teambox::Task.STATUS_NAMES[@data['status']]
+      @data['status'].nil? ? nil : Teambox::Task::STATUS_NAMES[@data['status']]
     end
     
     # The name of the previous status assigned to the Teambox::Task at time of posting
     def previous_status_name
-      Teambox::Task.STATUS_NAMES[@data['previous_status']]
+      @data['previous_status'].nil? ? nil : Teambox::Task::STATUS_NAMES[@data['previous_status']]
     end
     
     # The due date of the Teambox::Task at time of posting
     def due_on
-      @data.has_key?('due_on') ? Time.parse(data['due_on']) : nil
+      @data['due_on'] ? Time.parse(data['due_on']) : nil
     end
     
     # The previous due date of the Teambox::Task at time of posting
     def previous_due_on
-      @data.has_key?('previous_due_on') ? Time.parse(data['previous_due_on']) : nil
+      @data['previous_due_on'] ? Time.parse(data['previous_due_on']) : nil
     end
     
     # A list of Teambox::Upload attached to this comment
