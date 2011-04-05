@@ -146,6 +146,7 @@ module Teambox
       options[:headers] ||= {}
       headers = options[:headers]
       
+      options[:query] ||= {}
       options[:query][:access_token] = @access_token.token if @access_token
       self.class.send(method, path, options)
     end
