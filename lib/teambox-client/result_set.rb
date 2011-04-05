@@ -53,14 +53,14 @@ module Teambox
     # Gets a referenced object. e.g:
     #   get_reference('User', 1)
     def get_reference(klass, id)
-      @references[klass.to_s + id]
+      @references[klass.to_s + id.to_s]
     end
     
     # Array variant of get_reference, e.g:
     #   get_references('User', [1])
     def get_references(klass, ids)
       classname = klass.to_s
-      ids.map{ |id| @references[classname + id] }.compact
+      ids.map{ |id| @references[classname + id.to_s] }.compact
     end
     
     # Yields for each object

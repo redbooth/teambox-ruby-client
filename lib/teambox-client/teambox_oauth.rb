@@ -8,7 +8,8 @@ module Teambox
       return nil if @auth[:oauth_app_id].nil?
       @consumer ||= OAuth2::Client.new(@auth[:oauth_app_id], @auth[:oauth_app_secret], 
                                        :site => consumer_url,
-                                       :access_token_path => consumer_url+'oauth/token', :authorize_path => consumer_url+'oauth/authorize?response_type=code')
+                                       :access_token_path => consumer_url+'oauth/token',
+                                       :authorize_path => consumer_url+'oauth/authorize?response_type=code')
     end
     
     def consumer_url

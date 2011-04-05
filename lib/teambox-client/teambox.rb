@@ -308,6 +308,10 @@ module Teambox
     def method_missing(method, *args, &block) #:nodoc:
       @data.include?(method.to_s) ? @data[method.to_s] : super
     end
+    
+    def inspect
+      "#<#{self.class} @data=#{@data.inspect} list=#{@list.object_id}>"
+    end
   end
 end
 
