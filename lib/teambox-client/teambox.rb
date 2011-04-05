@@ -39,7 +39,7 @@ module Teambox
   #     :oauth_app_secret => 'fec4x9P7atC666JzF6WEZIeY6pVv1lCp6aLfVJBw',
   #     :redirect_uri => 'http://www.myapp.com/auth/teambox'})
   #   client.authorize_url # Open this in your browser
-  #   client.authorize(:oauth_verifier => '1234') # Code returned from teambox
+  #   client.authenticate(:oauth_verifier => '1234') # Code returned from teambox
   #
   #
   class Client
