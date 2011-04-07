@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{teambox-client}
-  s.version = "0.3.1"
+  s.version = "0.3.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Pablo Villalba", "James Urquhart"]
-  s.date = %q{2011-03-23}
+  s.date = %q{2011-04-07}
   s.description = %q{Provides methods to read and write to Teambox for ruby apps}
   s.email = %q{pablo@teambox.com}
   s.extra_rdoc_files = [
@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/teambox/teambox-ruby-client}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.5.0}
+  s.rubygems_version = %q{1.6.2}
   s.summary = %q{A ruby gem wrapper for Teambox API}
   s.test_files = [
     "examples/conversation.rb",
@@ -77,13 +77,16 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<httparty>, ["~> 0.7.4"])
       s.add_runtime_dependency(%q<oauth2>, ["~> 0.1.1"])
+      s.add_runtime_dependency(%q<json>, ["~> 1.5.1"])
     else
       s.add_dependency(%q<httparty>, ["~> 0.7.4"])
       s.add_dependency(%q<oauth2>, ["~> 0.1.1"])
+      s.add_dependency(%q<json>, ["~> 1.5.1"])
     end
   else
     s.add_dependency(%q<httparty>, ["~> 0.7.4"])
     s.add_dependency(%q<oauth2>, ["~> 0.1.1"])
+    s.add_dependency(%q<json>, ["~> 1.5.1"])
   end
 end
 
