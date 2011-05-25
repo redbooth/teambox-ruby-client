@@ -1,26 +1,26 @@
 module Teambox
   class Comment < Teambox::Resource
     def user
-      get_reference('User', @data, 'user_id', 'user')
+      get_or_make_reference('User', @data, 'user_id')
     end
     
     def project
-      get_reference('Project', @data, 'project_id', 'project')
+      get_or_make_reference('Project', @data, 'project_id')
     end
     
     # The Teambox::Resource which this comment belongs to
     def target
-      get_reference(@data['target_type'], @data, 'target_id', 'target')
+      get_or_make_reference(@data['target_type'], @data, 'target_id')
     end
     
     # The Teambox::Person assigned to the task at time of posting, if the comment belongs to a Teambox::Task
     def assigned
-      get_reference('Person', @data, 'assigned_id', 'assigned')
+      get_or_make_reference('Person', @data, 'assigned_id')
     end
     
     # The Teambox::Person previously assigned to the task at time of posting, if the comment belongs to a Teambox::Task
     def previous_assigned
-      get_reference('Person', @data, 'previous_assigned_id', 'previous_assigned')
+      get_or_make_reference('Person', @data, 'previous_assigned_id')
     end
     
     # The name of the status assigned to the Teambox::Task at time of posting
@@ -45,7 +45,7 @@ module Teambox
     
     # A list of Teambox::Upload attached to this comment
     def uploads
-      get_references('Upload', @data, 'upload_ids', 'uploads')
+      get_or_make_references('Upload', @data, 'upload_ids', 'uploads')
     end
     
     def url #:nodoc:

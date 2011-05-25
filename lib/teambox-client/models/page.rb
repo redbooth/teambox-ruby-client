@@ -1,16 +1,16 @@
 module Teambox
   class Page < Teambox::Resource
     def user
-      get_reference('User', @data, 'user_id', 'user')
+      get_or_make_reference('User', @data, 'user_id')
     end
     
     def project
-      get_reference('Project', @data, 'project_id', 'project')
+      get_or_make_reference('Project', @data, 'project_id')
     end
     
     # Returns an Array of Teambox::PageSlot
     def slots
-      get_references('PageSlot', @data, 'slot_ids', 'slots')
+      get_or_make_references('PageSlot', @data, 'slot_ids', 'slots')
     end
     
     def url #:nodoc:

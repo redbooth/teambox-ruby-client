@@ -205,11 +205,19 @@ module Teambox
   #
   # All attributes are exposed by the method_missing handler.
   class Resource
+    include ReferenceList
+  
     attr_accessor :list, :data
+    attr_reader :references
     
     def initialize(data, result_list=nil)
       @data = data
       @list = result_list || ResultSet.new(nil, nil, [], [])
+      if @data['references']
+        generate_references(@data['references'])
+      else
+        @references = result_list ? result_list.references : {}
+      end
     end
 
     def id
@@ -265,45 +273,6 @@ module Teambox
     def destroy
       @list.client.delete(url) if @list.client && url
       true
-    end
-    
-    # Sets reference in resource list. e.g.
-    #   set_reference('User', user)
-    def set_reference(klass, resource)
-      @list ? @list.set_reference(klass, resource) : resource.id
-    end
-    
-    # get reference based on data. Makes new resource if reference does not exist. e.g.
-    #   get_reference('User', @data, 'user_id', 'user')
-    def get_reference(klass, data, field_id, field_data=nil)
-      if @list
-        @list.get_reference(klass, data[field_id]) || 
-        @list.set_reference(klass, (data[field_data]||{}).merge({'id' => data[field_id]}))
-      else
-        nil
-      end
-    end
-    
-    # get a list of references based on data. Makes a new resource for each references which doesnot exist.
-    def get_references(klass, data, field_id, field_data=nil)
-      ret = nil
-      if @list
-        ret = if data[field_data]
-          data[field_data].map do |object|
-            @list.get_reference(klass, object['id']) ||
-            @list.set_reference(klass, object)
-          end
-        elsif data[field_id]
-          data[field_id].map do |object_id|
-            @list.get_reference(klass, object_id) ||
-            @list.set_reference(klass, {'id' => object_id})
-          end
-        else
-          nil
-        end
-      end
-      
-      ret || []
     end
     
     def method_missing(method, *args, &block) #:nodoc:

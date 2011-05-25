@@ -1,23 +1,23 @@
 module Teambox
   class Upload < Teambox::Resource
     def user
-      get_reference('User', @data, 'user_id', 'user')
+      get_or_make_reference('User', @data, 'user_id')
     end
     
     def project
-      get_reference('Project', @data, 'project_id', 'project')
+      get_or_make_reference('Project', @data, 'project_id')
     end
     
     def page
-      get_reference('Project', @data, 'project_id', 'project')
+      get_or_make_reference('Project', @data, 'project_id')
     end
     
     def page_slot
-      get_reference('PageSlot', @data, 'page_slot_id', 'page_slot')
+      get_or_make_reference('PageSlot', @data, 'page_slot_id')
     end
     
     def comment
-      get_reference('Comment', @data, 'comment_id', 'comment')
+      get_or_make_reference('Comment', @data, 'comment_id')
     end
     
     def url #:nodoc:

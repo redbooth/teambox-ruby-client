@@ -1,15 +1,15 @@
 module Teambox
   class Person < Teambox::Resource
     def user
-      get_reference('User', @data, 'user_id', 'user')
+      get_or_make_reference('User', @data, 'user_id')
     end
     
     def source_user
-      get_reference('User', @data, 'source_user_id', 'source_user')
+      get_or_make_reference('User', @data, 'source_user_id')
     end
     
     def project
-      get_reference('Project', @data, 'project_id', 'project')
+      get_or_make_reference('Project', @data, 'project_id')
     end
     
     def url #:nodoc:

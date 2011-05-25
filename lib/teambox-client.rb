@@ -5,4 +5,4 @@ require "uri"
 
 
 directory = File.expand_path(File.dirname(__FILE__))
-%w(teambox_oauth teambox result_set).each { |lib| require File.join(directory, 'teambox-client', lib) }
+%w(teambox_oauth reference_list teambox result_set).each { |lib| require File.join(directory, 'teambox-client', lib) }

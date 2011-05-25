@@ -1,7 +1,7 @@
 module Teambox
   class TaskList < Teambox::Resource
     def user
-      get_reference('User', @data, 'user_id', 'user')
+      get_or_make_reference('User', @data, 'user_id')
     end
     
     # Time this task list commences

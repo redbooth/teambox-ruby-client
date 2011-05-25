@@ -4,22 +4,22 @@ module Teambox
     STATUSES = [0,1,2,3,4]
     
     def user
-      get_reference('User', @data, 'user_id', 'user')
+      get_or_make_reference('User', @data, 'user_id')
     end
     
     # Teambox::TaskList this task belongs to
     def task_list
-      get_reference('TaskList', @data, 'task_list_id', 'task_list')
+      get_or_make_reference('TaskList', @data, 'task_list_id')
     end
     
     # First Teambox::Comment of the task
     def first_comment
-      get_reference('Comment', @data, 'first_comment_id', 'first_comment')
+      get_or_make_reference('Comment', @data, 'first_comment_id')
     end
     
     # Last two Teambox::Comment of the task (may include first_comment)
     def recent_comments
-      get_references('Comment', @data, 'recent_comment_ids', 'recent_comments')
+      get_or_make_references('Comment', @data, 'recent_comment_ids')
     end
     
     # Gets a Teambox::ResultSet of all Teambox::Comment objects belonging to the conversation
@@ -29,7 +29,7 @@ module Teambox
     
     # The Teambox::Person assigned this task
     def assigned
-      get_reference('Person', @data, 'assigned_id', 'assigned')
+      get_or_make_reference('Person', @data, 'assigned_id')
     end
     
     # Sets the Teambox::Person assigned this task

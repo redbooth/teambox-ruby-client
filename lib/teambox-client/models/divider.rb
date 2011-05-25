@@ -1,11 +1,11 @@
 module Teambox
   class Divider < Teambox::Resource
     def page
-      get_reference('Page', @data, 'page_id', 'page')
+      get_or_make_reference('Page', @data, 'page_id')
     end
     
     def project
-      get_reference('Project', @data, 'project_id', 'project')
+      get_or_make_reference('Project', @data, 'project_id')
     end
     
     def url #:nodoc:

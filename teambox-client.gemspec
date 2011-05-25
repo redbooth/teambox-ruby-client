@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{teambox-client}
-  s.version = "0.3.2"
+  s.version = "0.4.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Pablo Villalba", "James Urquhart"]
-  s.date = %q{2011-04-07}
+  s.date = %q{2011-05-25}
   s.description = %q{Provides methods to read and write to Teambox for ruby apps}
   s.email = %q{pablo@teambox.com}
   s.extra_rdoc_files = [
@@ -58,18 +58,6 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.6.2}
   s.summary = %q{A ruby gem wrapper for Teambox API}
-  s.test_files = [
-    "examples/conversation.rb",
-    "examples/task.rb",
-    "examples/users.rb",
-    "spec/client_spec.rb",
-    "spec/conversation_spec.rb",
-    "spec/project_spec.rb",
-    "spec/result_set_spec.rb",
-    "spec/spec_helper.rb",
-    "spec/task_lists_spec.rb",
-    "spec/tasks_spec.rb"
-  ]
 
   if s.respond_to? :specification_version then
     s.specification_version = 3

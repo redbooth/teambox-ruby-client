@@ -2,7 +2,7 @@ module Teambox
   class Project < Teambox::Resource
     # Teambox::User who created this project
     def owner_user
-      get_reference('User', @data, 'owner_user_id', 'owner_user')
+      get_or_make_reference('User', @data, 'owner_user_id')
     end
     
     def url #:nodoc:

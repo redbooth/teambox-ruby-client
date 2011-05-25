@@ -20,47 +20,18 @@ module Teambox
   #   end
   #
   class ResultSet
+    include ReferenceList
     attr_reader :first_id, :last_id, :client, :references, :objects
     
     def initialize(client, request, objects, references) #:nodoc:
       @client = client
       @request = request
+      generate_references(references)
       @objects = objects.map { |o| Teambox.create_model(o['type'], o, self) }
-      @references = {}.tap { |h| references.each {|ref| h[ref['type'] + ref['id'].to_s] = Teambox.create_model(ref['type'], ref, self) } }
       
       id_list = objects.map{|obj| obj['id']}.sort
       @first_id = id_list[0]
       @last_id = id_list[-1]
-    end
-    
-    # References resource in the current Teambox::ResultSet
-    def set_reference(klass, resource)
-      real_resource = if resource.is_a? Teambox::Resource
-        resource
-      else
-        Teambox.const_get(klass).new(resource, self)
-      end
-      
-      @references[klass.to_s + real_resource.id.to_s] = real_resource
-      real_resource
-    end
-    
-    # Array variant of set_reference
-    def set_references(klass, list)
-      list.each { |o| set_reference(klass, o) }
-    end
-    
-    # Gets a referenced object. e.g:
-    #   get_reference('User', 1)
-    def get_reference(klass, id)
-      @references[klass.to_s + (id||'').to_s]
-    end
-    
-    # Array variant of get_reference, e.g:
-    #   get_references('User', [1])
-    def get_references(klass, ids)
-      classname = klass.to_s
-      ids.map{ |id| @references[classname + (id||'').to_s] }.compact
     end
     
     # Yields for each object
