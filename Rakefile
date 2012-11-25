@@ -13,7 +13,7 @@ begin
 
     gem.add_dependency("httparty", "~> 0.7.4")
     gem.add_dependency("oauth2", "~> 0.1.1")
-    gem.add_dependency("json", "~> 1.5.1")
+    gem.add_dependency("json", "~> 1.7.5")
   end
 rescue LoadError
   puts "Jeweler (or a dependency) not available. Install it with: sudo gem install jeweler"
