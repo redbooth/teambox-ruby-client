@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
   ]
   s.homepage = %q{http://github.com/teambox/teambox-ruby-client}
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.6.2}
+  s.rubygems_version = %q{1.8.6}
   s.summary = %q{A ruby gem wrapper for Teambox API}
 
   if s.respond_to? :specification_version then

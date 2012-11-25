@@ -11,8 +11,8 @@ begin
     gem.homepage    = "http://github.com/teambox/teambox-ruby-client"
     gem.authors     = ["Pablo Villalba", "James Urquhart"]
 
-    gem.add_dependency("httparty", "~> 0.7.4")
-    gem.add_dependency("oauth2", "~> 0.1.1")
+    gem.add_dependency("httparty", "~> 0.9.0")
+    gem.add_dependency("oauth2", "~> 0.8.0")
     gem.add_dependency("json", "~> 1.7.5")
   end
 rescue LoadError
