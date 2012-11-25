@@ -15,13 +15,17 @@ First, install the teambox-client gem:
 Now, run "irb -rubygems" and this snippet to get the list of activities:
 
   require 'teambox-client'
-  client = Teambox::Client.new(:auth => {:username => 'frank', :password => 'papapa'})
+  client = Teambox::Client.new(:auth => {:user => 'frank', :password => 'papapa'})
   puts client.activities
 
 By default, teambox-client will connect to the hosted service at https://teambox.com/api/1; optionally you can:
 
-  client = Teambox::Client.new(:base_uri => 'http://teambox.mysite.com/api/1', :auth => {:username => 'frank', :password => 'papapa'})
+  client = Teambox::Client.new(:base_uri => 'http://teambox.mysite.com/api/1', :auth => {:user => 'frank', :password => 'papapa'})
 
 == Examples
 
 See the examples directory.
+
+== Important Notes
+
+No support for Ruby 1.9.3 yet.
