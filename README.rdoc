@@ -25,3 +25,7 @@ By default, teambox-client will connect to the hosted service at https://teambox
 == Examples
 
 See the examples directory.
+
+== Important Notes
+
+No support for Ruby 1.9.3 yet.
